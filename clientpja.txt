@@ -1,0 +1,53 @@
+package tp_5;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.MalformedURLException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Scanner;
+
+public class UpCaTCPClient {
+	private static final String adresse = "127.0.0.1";
+    private static int port = 1200;
+	 public static void main(String[] args) throws Exception{
+		 Scanner in;
+	        String serverResponse = null;
+	     
+	      System.out.println("Demande de connexion"); 
+	      Socket socket = new Socket(adresse, port);
+	      System.out.println("Server is listening on adress , port " + port +adresse);
+	      
+	      System.out.println("Connexion établie"); 
+	      
+	      
+	     BufferedReader inC = new BufferedReader( new InputStreamReader(socket.getInputStream()) ); 
+	     PrintWriter outC = new PrintWriter( new BufferedWriter( new OutputStreamWriter(socket.getOutputStream())), true); 
+	     System.out.println("Flux E/S crées");
+	     in = new Scanner(System.in);
+         do {
+             outC.println(in.nextLine()); 
+             serverResponse = inC.readLine(); 
+             System.out.println("Server response: "+ serverResponse);
+         } while (true);
+         
+         
+	     
+	      
+	      
+	      
+	     
+	     
+	     
+	     in.close();
+	     inC.close(); 
+	     outC.close(); 
+	     System.out.println("Fermeture des flux d'entrée-sortie du Client");
+	     socket.close();
+	     System.out.println("Fermeture du socket client");
+	     
+	    }       
+	}
